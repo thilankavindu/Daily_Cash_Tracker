@@ -56,4 +56,4 @@ This application simplifies cash collection management by automating calculation
 
 📦 Installation & Setup
 Clone the repository
-git clone (https://github.com/thathshila/Mobile-Application-Development.git)
+git clone (https://github.com/thilankavindu/Daily_Cash_Tracker.git)
