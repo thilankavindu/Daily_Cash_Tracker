@@ -57,3 +57,5 @@ This application simplifies cash collection management by automating calculation
 📦 Installation & Setup
 Clone the repository
 git clone (https://github.com/thilankavindu/Daily_Cash_Tracker.git)
+
+Youtube Link (https://youtube.com/shorts/Qd_nA-df0CQ)
