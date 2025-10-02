@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "application",
-    "slug": "application",
+    "slug": "cash-tracker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -32,8 +32,10 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "42c5b9a2-0f61-45d1-be3b-3744a2390566"
-      }
-    }
+        "projectId": "a1c1fa75-80f4-4749-9ef6-4a7a9a5ca7c8"
+      },
+      "router": {}
+    },
+    "owner": "kavinduthilan"
   }
 }
