@@ -489,7 +489,7 @@ const MainAppScreen = () => {
       
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Cash Collection Tracker - {user?.displayName}</Text>
+        <Text style={styles.headerTitle}>Cash Collection Tracker - {user?.name}</Text>
         <View style={styles.headerActions}>
           <TouchableOpacity onPress={() => setMemberModalVisible(true)} style={styles.headerButton}>
             <Ionicons name="person-add" size={24} color="white" />

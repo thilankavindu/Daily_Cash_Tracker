@@ -1,25 +1,46 @@
-
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useAuth } from '../src/auth/AuthContext';
-import { useRouter } from 'expo-router';
+import { useRouter } from 'expo-router'; // or '@react-navigation/native'
 
 const RegisterScreen = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const { register } = useAuth();
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  
+  const { signUp } = useAuth();
   const router = useRouter();
 
-  const handleRegister = async () => {
+  const handleRegister = async (): Promise<void> => {
+    // Basic validation
+    if (!name || !email || !password || !confirmPassword) {
+      Alert.alert('Error', 'Please fill in all fields');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match');
+      return;
+    }
+
+    if (password.length < 6) {
+      Alert.alert('Error', 'Password should be at least 6 characters');
+      return;
+    }
+
+    setIsLoading(true);
+
     try {
-      await register(name, email, password);
-      // On successful registration, you might want to automatically log them in
-      // and navigate to the main part of the app.
-      // For now, we'll just log the success and let the AuthProvider handle the state change.
+      await signUp(name, email, password, confirmPassword);
       console.log('Registration successful!');
+      // Navigate to login or main app after successful registration
+      router.push('/login');
     } catch (error: any) {
-      alert(`Registration failed: ${error.message}`);
+      Alert.alert('Registration Failed', error.message || 'An error occurred during registration');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -34,7 +55,9 @@ const RegisterScreen = () => {
         value={name}
         onChangeText={setName}
         autoCapitalize="words"
+        editable={!isLoading}
       />
+      
       <TextInput
         style={styles.input}
         placeholder="Email address"
@@ -42,22 +65,47 @@ const RegisterScreen = () => {
         onChangeText={setEmail}
         keyboardType="email-address"
         autoCapitalize="none"
+        autoComplete="email"
+        editable={!isLoading}
       />
+      
       <TextInput
         style={styles.input}
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
+        editable={!isLoading}
       />
 
-      <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
-        <Text style={styles.registerButtonText}>Register</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Confirm Password"
+        value={confirmPassword}
+        onChangeText={setConfirmPassword}
+        secureTextEntry
+        editable={!isLoading}
+      />
+
+      <TouchableOpacity 
+        style={[
+          styles.registerButton, 
+          isLoading && styles.registerButtonDisabled
+        ]} 
+        onPress={handleRegister}
+        disabled={isLoading}
+      >
+        <Text style={styles.registerButtonText}>
+          {isLoading ? 'Creating Account...' : 'Register'}
+        </Text>
       </TouchableOpacity>
 
       <View style={styles.loginPromptContainer}>
         <Text style={styles.loginPromptText}>Already have an account? </Text>
-        <TouchableOpacity onPress={() => router.push('/login')}>
+        <TouchableOpacity 
+          onPress={() => router.push('/login')}
+          disabled={isLoading}
+        >
           <Text style={styles.loginLink}>Log in</Text>
         </TouchableOpacity>
       </View>
@@ -101,6 +149,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     marginTop: 8,
+  },
+  registerButtonDisabled: {
+    backgroundColor: '#9ca3af', // gray-400
   },
   registerButtonText: {
     color: '#ffffff',

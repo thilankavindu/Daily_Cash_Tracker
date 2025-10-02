@@ -7,7 +7,7 @@ import { useRouter } from 'expo-router';
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useAuth();
+  const { signIn } = useAuth();
   const router = useRouter();
 
   const handleLogin = async () => {
@@ -16,7 +16,7 @@ const LoginScreen = () => {
       return;
     }
     try {
-      await login(email, password);
+      await signIn(email, password);
       // The AuthProvider will handle the navigation to the main app
       console.log('Login successful!');
     } catch (error: any) {

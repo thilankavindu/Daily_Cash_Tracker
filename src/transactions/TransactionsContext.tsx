@@ -1,6 +1,6 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { db } from '../firebase';
+import { db } from '../../config/firebaseConfig';
 import {
   collection,
   query,
@@ -59,8 +59,9 @@ export const TransactionsProvider: React.FC<{ children: ReactNode }> = ({ childr
           category: data.category,
           type: data.type,
           date: data.date,
-          createdAt: data.createdAt,
           userId: data.userId,
+          memberId: data.meberId,
+          createdAt: data.createdAt,
         });
       });
       transactionsData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());

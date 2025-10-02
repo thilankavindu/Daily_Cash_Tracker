@@ -2,7 +2,7 @@
 export interface User {
   uid: string; // Firebase User ID
   email: string | null;
-  displayName: string | null;
+  name: string | null;
 }
 
 export interface AuthContextType {
@@ -32,7 +32,10 @@ export interface Transaction {
   amount: number;
   description: string;
   date: Date;
-  userId: string; // Add userId to link transactions to users
+  userId: string;
+  type?: string; // Add userId to link transactions to users
+  category?: string;
+  createdAt?: string;
 }
 
 export type AuthStackParamList = {

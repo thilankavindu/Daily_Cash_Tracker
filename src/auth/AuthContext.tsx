@@ -18,7 +18,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setUser({
           uid: firebaseUser.uid,
           email: firebaseUser.email,
-          displayName: firebaseUser.displayName
+          name: firebaseUser.displayName
         });
       } else {
         setUser(null);
@@ -36,7 +36,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser({
         uid: firebaseUser.uid,
         email: firebaseUser.email,
-        displayName: firebaseUser.displayName
+        name: firebaseUser.displayName
       });
       return { success: true };
     } catch (error: any) {
@@ -58,7 +58,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser({
         uid: firebaseUser.uid,
         email: firebaseUser.email,
-        displayName: name // Set display name from input
+        name: name // Set display name from input
       });
 
       // For now, we are not storing additional user data in Firestore during sign up

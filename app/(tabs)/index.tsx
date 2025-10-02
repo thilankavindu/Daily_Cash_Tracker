@@ -1,6 +1,6 @@
 
-import { useAuth } from '@/src/auth/AuthContext';
-import { useTransactions } from '@/src/transactions/TransactionsContext';
+import { useAuth } from '../../src/auth/AuthContext';
+import { useTransactions } from '../../src/transactions/TransactionsContext';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useMemo } from 'react';
@@ -10,7 +10,7 @@ import { BarChart } from 'react-native-chart-kit';
 const { width } = Dimensions.get('window');
 
 const DashboardScreen = () => {
-  const { user, logout } = useAuth();
+  const { user, signOut } = useAuth();
   const { transactions, loading } = useTransactions();
   const router = useRouter();
 
@@ -76,7 +76,7 @@ const DashboardScreen = () => {
           <Text style={styles.greeting}>Hello, {user?.name || 'User'}!</Text>
           <Text style={styles.subGreeting}>Welcome to your financial hub.</Text>
         </View>
-        <TouchableOpacity onPress={logout}>
+        <TouchableOpacity onPress={signOut}>
           <Ionicons name="log-out-outline" size={28} color="#ef4444" />
         </TouchableOpacity>
       </View>
@@ -153,7 +153,7 @@ const DashboardScreen = () => {
             <View key={t.id} style={styles.transactionItem}>
               <View>
                 <Text style={styles.transactionDesc}>{t.description}</Text>
-                <Text style={styles.transactionDate}>{t.date}</Text>
+                <Text style={styles.transactionDate}>{t.date?.getDate()}</Text>
               </View>
               <Text style={[styles.transactionAmount, t.type === 'income' ? styles.income : styles.expense]}>
                 {t.type === 'income' ? '+' : '-'}$ {t.amount.toFixed(2)}
