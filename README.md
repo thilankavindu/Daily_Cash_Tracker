@@ -59,3 +59,4 @@ Clone the repository
 git clone (https://github.com/thilankavindu/Daily_Cash_Tracker.git)
 
 Youtube Link (https://youtube.com/shorts/Qd_nA-df0CQ)
+App Download Link (https://expo.dev/accounts/kavinduthilan/projects/application/builds/52f5e3cd-9d87-48c2-b5d1-3ddffdbba838)
